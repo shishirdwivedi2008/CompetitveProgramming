@@ -121,7 +121,7 @@ public class BinaryTree {
 	 * @param root
 	 * @return
 	 */
-	public int getHeight(BTNode root) {
+	private int getHeight(BTNode root) {
 		if (root==null)
 			return 0;
 		int left=getHeight(root.left);
@@ -147,7 +147,7 @@ public class BinaryTree {
 	 * @param root
 	 * @param level
 	 */
-	public void printLevel(BTNode root, int level) {
+	private void printLevel(BTNode root, int level) {
 		if(root==null)
 			return;
 		if(level==1)
@@ -155,6 +155,44 @@ public class BinaryTree {
 		printLevel(root.left, level-1);
 		printLevel(root.right, level-1);
 					
+	}
+	
+	/**
+	 * Print level order in reverse
+	 * @param root
+	 */
+	public void printLevelOrderReverse(BTNode root) {
+		int height=getHeight(root);
+		for(int i=height;i>=1;i--) {
+			printLevel(root, i);
+		}
+	}
+	
+	/**
+	 * Printing Level order tree in zigzag or spiral form.
+	 * @param root
+	 */
+	public void printLevelOrderSpiralOrZigZag(BTNode root) {
+		int height=getHeight(root);
+		boolean flag=true;
+		for(int i=1;i<=height;i++) {
+			printLevelSpiral(root, i, flag);
+			flag=!flag;
+		}
+	}
+	
+	private void printLevelSpiral(BTNode root, int level,boolean flag) {
+		if(root==null)
+			return;
+		if(level==1)
+			System.out.println(root.data);
+		if(flag) {
+			printLevelSpiral(root.left, level-1, flag);
+			printLevelSpiral(root.right, level-1, flag);
+		}else {
+			printLevelSpiral(root.right, level-1, flag);
+			printLevelSpiral(root.left, level-1, flag);
+		}
 	}
 	
 	public static void main(String[] args) {
@@ -171,7 +209,13 @@ public class BinaryTree {
 		System.out.println(tree.findSize(tree.root));
 		tree.root=tree.insertNode(tree.root, 100);
 		tree.inorderTraversal(tree.root);
-		*/
+		
 		tree.printLevelOrder(tree.root);
+		System.out.println("##################");
+		tree.printLevelOrderReverse(tree.root);
+		*/
+		tree.printLevelOrderSpiralOrZigZag(tree.root);
 	}
+	
+	
 }
