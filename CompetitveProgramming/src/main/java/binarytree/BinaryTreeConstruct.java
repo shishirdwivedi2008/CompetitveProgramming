@@ -6,7 +6,14 @@ public class BinaryTreeConstruct {
 		root=new BTNode(data);
 	}
 	
-	
+	/**
+	 * Build tree using inorder and preorder array.
+	 * @param inorder
+	 * @param pre
+	 * @param start
+	 * @param end
+	 * @return
+	 */
 	public BTNode buildTree(int [] inorder, int [] pre, int start, int end) {
 		if(start>end)
 			return null;
@@ -24,6 +31,10 @@ public class BinaryTreeConstruct {
 		return root;
 		
 	}
+	
+	
+	
+	
 	
 	public int searchIndex(int [] inorder, int start, int end, int data) {
 		for(int i=start;i<end;i++) {
