@@ -49,6 +49,23 @@ public class BinaryTreeCheckingAndPrinting {
 	}
 	
 	
+	private int countTotalNodes(BTNode root) {
+		if(root==null)
+			return 0;
+		
+		return (countTotalNodes(root.left)+countTotalNodes(root.right)+1);
+	}
+	
+	public boolean checkTreeCanBeDividedInTwoHalfes(BTNode root , int count) {
+		if(root==null)
+			return false;
+		
+		if(countTotalNodes(root)==count-countTotalNodes(root))
+			return true;
+
+		return (checkTreeCanBeDividedInTwoHalfes(root.left, count)|| checkTreeCanBeDividedInTwoHalfes(root.right, count)) ;
+	}
+	
 	
 	
 	
@@ -76,7 +93,10 @@ public class BinaryTreeCheckingAndPrinting {
         tree.root.left.left.left = new BTNode(1); 
         tree.root.left.right.left = new BTNode(1); 
         tree.root.left.left.left.left=new BTNode(23);
-        System.out.println(tree.checkLeafLevelIsSame(tree.root, 0, leafLevel));
+        //System.out.println(tree.checkLeafLevelIsSame(tree.root, 0, leafLevel));
+        int count=tree.countTotalNodes(tree.root);
+       System.out.println( tree.checkTreeCanBeDividedInTwoHalfes(tree.root, count));
+        
         
        
 	}
