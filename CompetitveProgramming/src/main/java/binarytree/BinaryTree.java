@@ -251,6 +251,50 @@ public class BinaryTree {
 			return 0;
 		return (sum(root.left)+root.data+sum(root.right));
 	}
+	
+	private int sumUncovered(BTNode root) {
+		int leftSum=0;
+		int rightSum=0;
+		if(root.left!=null)
+			leftSum+=sumUncoveredLeft(root.left);
+		else
+			rightSum+=sumUncoveredRight(root.right);
+		
+		return root.data+leftSum+rightSum;
+			
+	}
+	
+	
+	private int sumUncoveredLeft(BTNode root) {
+		if( (root.left==null && root.right==null))
+			return root.data;
+		if(root.left!=null)
+			return root.data+sumUncoveredLeft(root.left);
+		else
+			return root.data+sumUncoveredLeft(root.right);
+	}
+	
+	private int sumUncoveredRight(BTNode root) {
+		if(root.left==null && root.right==null)
+			return root.data;
+		if(root.right!=null)
+			return root.data+sumUncoveredRight(root.right);
+		else
+			return root.data+sumUncoveredRight(root.left);
+	}
+	
+	/**
+	 * Method to know wthere sum of covered nodes is equal to sum of uncovered nodes
+	 * @param root
+	 * @return
+	 */
+	public boolean sumCoveredEqualToUncovered(BTNode root) {
+		int SumUncovered=sumUncovered(root);
+		int totalSum=sum(root);
+		
+		return (SumUncovered==(totalSum-SumUncovered));
+			
+	}
 
 	public static void main(String[] args) {
 		/*
@@ -275,7 +319,7 @@ public class BinaryTree {
 		tree.root.left.left = new BTNode(3);
 		tree.root.left.right = new BTNode(5);
 		tree.root.right.left = new BTNode(2);
-		*/
+		
 		
 		BinaryTree tree = new BinaryTree(26);
 		tree.root.left = new BTNode(10);
@@ -284,6 +328,21 @@ public class BinaryTree {
 		tree.root.left.right = new BTNode(6);
 		tree.root.right.left = new BTNode(3);
 		System.out.println(tree.checkSumTree(tree.root));
+		*/
+		BinaryTree tree = new BinaryTree(8); 
+		  
+        // Making above given diagram's binary tree 
+        tree.root.left = new BTNode(3); 
+        tree.root.left.left = new BTNode(1); 
+        tree.root.left.right = new BTNode(38); 
+        tree.root.left.right.left = new BTNode(4); 
+        tree.root.left.right.right = new BTNode(7); 
+  
+        tree.root.right = new BTNode(10); 
+        tree.root.right.right = new BTNode(14); 
+        tree.root.right.right.left = new BTNode(13); 
+        
+        System.out.println(tree.sumCoveredEqualToUncovered(tree.root));
 
 	}
 
