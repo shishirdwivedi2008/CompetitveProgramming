@@ -295,6 +295,25 @@ public class BinaryTree {
 		return (SumUncovered==(totalSum-SumUncovered));
 			
 	}
+	
+	/**
+	 * Convert binary tree to its mirror image
+	 * @param root
+	 * @return
+	 */
+	public BTNode convertTreeToItsMirror(BTNode root) {
+		if(root==null)
+			return null;
+		int temp=root.left.data;
+		root.left.data=root.right.data;
+		root.right.data=temp;
+		
+		convertTreeToItsMirror(root.left);
+		convertTreeToItsMirror(root.right);
+		return  root;
+		
+	}
+	
 
 	public static void main(String[] args) {
 		/*
