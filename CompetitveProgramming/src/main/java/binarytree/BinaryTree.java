@@ -313,7 +313,22 @@ public class BinaryTree {
 		return  root;
 		
 	}
-	
+	/**
+	 * Check whether two tree is mirror image of each other
+	 * @param root1
+	 * @param root2
+	 * @return
+	 */
+	public boolean isTreeMirrorImage(BTNode root1,BTNode root2) {
+		if(root1==null| root2==null)
+			return false;
+		if(root1==null && root2==null)
+			return true;
+		if(root1.data==root2.data)
+			return true;
+		
+		return (isTreeMirrorImage(root1.left, root2.right) && (isTreeMirrorImage(root1.right, root2.left)));
+	}
 
 	public static void main(String[] args) {
 		/*
