@@ -1,5 +1,8 @@
 package binarytree;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class BinaryTreeConstruct {
 	BTNode root;
 	public BinaryTreeConstruct(int data) {
@@ -72,6 +75,47 @@ public class BinaryTreeConstruct {
 		return false;
 	}
 	
+	/**
+	 * Method to print specific level order is complete binary tree.
+	 * @param root
+	 */
+	public void printSpecificLevelOrder(BTNode root) {
+		if(root ==null)
+			return ;
+		//Since it is perfect binary tree hence we know that left and right child would be there hence not checking right
+		if(root.left!=null) {
+			System.out.println(root.left.data+ " "+root.right.data);
+		}
+		//Check if more children there 
+		if(root.left.left==null)
+			return;
+		//If more childere is there enqueue 2 node is queue and process them.
+		Queue<BTNode> que=new LinkedList<BTNode>();
+		que.add(root.left);
+		que.add(root.right);
+		
+		//Since whe have store two node we will need to variable.
+		
+		BTNode first = null,second=null;
+		//now till queue is not empyt pull node and print them
+		while(!que.isEmpty()) {
+			first=que.peek();
+			que.remove(first);
+			second=que.peek();
+			que.remove(second);
+		}
+		//Now print them
+		
+		System.out.println(first.left.data+ " "+second.right.data);
+		System.out.println(first.right.data+ "  "+second.left.data);
+		//Now check further child is available if yes add to queue.
+		if(root.left.left!=null) {
+			que.add(first.left);
+			que.add(second.right);
+			que.add(first.right);
+			que.add(second.left);
+		}
+	}
 	
 	public static void main(String[] args) {
 		BinaryTreeConstruct tree=new BinaryTreeConstruct(1);
