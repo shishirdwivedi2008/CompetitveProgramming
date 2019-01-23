@@ -50,7 +50,9 @@ public class StringProblem {
 	public void printLCS(char [] x,char [] y , int m, int n) {
 		int [] [] L=new int [m+1][n+1];
 		for( int i=0;i<=m;i++) {
+			
 			for(int j=0;j<=n;i++) {
+				
 				if(i==0 || j==0)
 					L[i][j] = 0;
 				else if(x[i-1]==y[j-1]) {
