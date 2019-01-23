@@ -46,13 +46,51 @@ public class StringProblem {
 		
 	}
 	
+	
+	public void printLCS(char [] x,char [] y , int m, int n) {
+		int [] [] L=new int [m+1][n+1];
+		for( int i=0;i<=m;i++) {
+			for(int j=0;j<=n;i++) {
+				if(i==0 || j==0)
+					L[i][j] = 0;
+				else if(x[i-1]==y[j-1]) {
+					L[i][j]=1+L[i-1][j-1];
+				}else
+					L[i][j]=Math.max(L[i-1][j], L[i][j-1]);
+			}
+		}
+		//Get the max substring in array
+		int index=L[m][n];
+		int temp=index;
+		int [] lcs= new int [index+1];
+		int i = 0,j=0;
+		while( i>0 && j>0) {
+			if(x[i-1]==y[j-1]) {
+				lcs[index-1]=x[i-1];
+				i--;
+				j--;
+				index--;
+			}
+			else if(L[i-1][j]>L[i][j-1])
+				i--;
+			else
+				j--;
+		}
+		
+		//Print the array;
+		for(int k=0;k<=temp;i++) {
+			System.out.println(lcs[k]);
+		}
+		
+	}
 	public static void main(String[] args) {
 		StringProblem string=new StringProblem();
-		char [] s1="AGGTAB".toCharArray();
-		char [] s2="GXTXAYB".toCharArray();
-		int m=s1.length;
-		int n=s2.length;
+		char [] x="AGGTAB".toCharArray();
+		char [] y="GXTXAYB".toCharArray();
+		int m=x.length;
+		int n=y.length;
 		//System.out.println(string.lcs(s1.toCharArray(), s2.toCharArray(), s1.toCharArray().length,s2.toCharArray().length));
-		System.out.println(string.lcsUsingMemoization(s1, s2, m, n));
+		//System.out.println(string.lcsUsingMemoization(s1, s2, m, n));
+		string.printLCS(x, y, m, n);
 	}
 }
