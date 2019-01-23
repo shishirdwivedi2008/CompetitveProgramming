@@ -1,5 +1,7 @@
 package string;
 
+import sun.awt.SunHints.LCDContrastKey;
+
 public class StringProblem {
 
 	/**
@@ -25,10 +27,32 @@ public class StringProblem {
 	}
 	
 	
+	public int lcsUsingMemoization(char [] x, char [] y, int m, int n) {
+		int [] [] l=new int [m+1][n+1];
+		
+		for( int i=0;i<=m;i++) {
+			for(int j=0;j<=n;j++) {
+				if(i==0 ||j==0)
+					l[i][j]=0;
+				else if(x[i-1]==y[j-1]) {
+					l[i][j]=l[i-1][j-1]+1;
+				}
+				else
+					l[i][j]=max(l[i-1][j],l[i][j-1]);
+			}
+		}
+		
+		return l[m][n];
+		
+	}
+	
 	public static void main(String[] args) {
 		StringProblem string=new StringProblem();
-		String s1="AGGTAB";
-		String s2="GXTXAYB";
-		System.out.println(string.lcs(s1.toCharArray(), s2.toCharArray(), s1.toCharArray().length,s2.toCharArray().length));
+		char [] s1="AGGTAB".toCharArray();
+		char [] s2="GXTXAYB".toCharArray();
+		int m=s1.length;
+		int n=s2.length;
+		//System.out.println(string.lcs(s1.toCharArray(), s2.toCharArray(), s1.toCharArray().length,s2.toCharArray().length));
+		System.out.println(string.lcsUsingMemoization(s1, s2, m, n));
 	}
 }
